@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://byg2f314mscqf"]
+[gd_scene load_steps=4 format=3 uid="uid://byg2f314mscqf"]
 
 [ext_resource type="Texture2D" uid="uid://dv6hw23cav0yp" path="res://icon.svg" id="1_q1ynt"]
 [ext_resource type="Script" path="res://math.gd" id="1_vrsrw"]
+[ext_resource type="AudioStream" uid="uid://cxj0wgvm2gl4k" path="res://assets/math.mp3" id="3_8vmfg"]
 
 [node name="Math" type="Control"]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchors_preset = 0
 script = ExtResource("1_vrsrw")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 
@@ -44,7 +46,20 @@ offset_right = 832.0
 offset_bottom = 576.0
 texture_normal = ExtResource("1_q1ynt")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_8vmfg")
+autoplay = true
+
+[node name="DistractionTimer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="Distraction" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [connection signal="pressed" from="Option1" to="." method="_on_option_1_pressed"]
 [connection signal="pressed" from="Option2" to="." method="_on_option_2_pressed"]
 [connection signal="pressed" from="Option3" to="." method="_on_option_3_pressed"]
 [connection signal="pressed" from="Option4" to="." method="_on_option_4_pressed"]
+[connection signal="timeout" from="DistractionTimer" to="." method="_on_distraction_timer_timeout"]

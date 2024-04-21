@@ -6,6 +6,9 @@ extends Control
 @onready var option_3 = get_node("Option3")
 @onready var option_4 = get_node("Option4")
 
+var dance_break = preload("res://distractions/dance_break.tscn")
+var confetti = preload("res://distractions/confetti.tscn")
+
 var numbers = {
 	"number0": "",
 	"number1": "",
@@ -18,6 +21,8 @@ var numbers = {
 	"number8": "",
 	"number9": "",
 }
+
+var distractions = [dance_break, confetti]
 
 var score = 0
 
@@ -104,3 +109,22 @@ func _on_option_4_pressed() -> void:
 		score += 1
 	else:
 		score -= 1
+
+
+func wait_time_randomizer():
+	randomize()
+	var random_time = int(randf_range(15,45))
+	randomize()
+	$DistractionTimer.wait_time = random_time
+
+
+
+func _on_distraction_timer_timeout() -> void:
+	randomize()
+	var size = distractions.size()
+	var random_distraction = distractions[randi() % size]
+	var distranction_instance = random_distraction.instantiate()
+	$Distraction.add_child(distranction_instance)
+	randomize()
+	
+	wait_time_randomizer()
