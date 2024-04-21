@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=3 uid="uid://72ij81x63h3m"]
+
+[ext_resource type="Script" path="res://distractions/dance_break.gd" id="1_5cxm7"]
+[ext_resource type="Texture2D" uid="uid://dv6hw23cav0yp" path="res://icon.svg" id="1_ja0wq"]
+
+[node name="DanceBreak" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5cxm7")
+
+[node name="Left" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 824.0
+offset_right = 448.0
+offset_bottom = 952.0
+texture_normal = ExtResource("1_ja0wq")
+
+[node name="Up" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 664.0
+offset_top = 832.0
+offset_right = 792.0
+offset_bottom = 960.0
+texture_normal = ExtResource("1_ja0wq")
+
+[node name="Down" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 1152.0
+offset_top = 824.0
+offset_right = 1280.0
+offset_bottom = 952.0
+texture_normal = ExtResource("1_ja0wq")
+
+[node name="Right" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 1536.0
+offset_top = 832.0
+offset_right = 1664.0
+offset_bottom = 960.0
+texture_normal = ExtResource("1_ja0wq")
+
+[node name="Target" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 616.0
+offset_top = 88.0
+offset_right = 888.0
+offset_bottom = 336.0
