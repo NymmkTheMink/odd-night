@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cadnxh4vbbm0i"]
+[gd_scene load_steps=3 format=3 uid="uid://cadnxh4vbbm0i"]
 
 [ext_resource type="Texture2D" uid="uid://dv6hw23cav0yp" path="res://icon.svg" id="1_0oqlu"]
+[ext_resource type="Script" path="res://distractions/confetti_pieces.gd" id="2_yj74w"]
 
 [node name="ConfettiPieces" type="TextureButton"]
 anchors_preset = 15
@@ -13,3 +14,6 @@ grow_vertical = 2
 texture_normal = ExtResource("1_0oqlu")
 texture_pressed = ExtResource("1_0oqlu")
 texture_hover = ExtResource("1_0oqlu")
+script = ExtResource("2_yj74w")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
