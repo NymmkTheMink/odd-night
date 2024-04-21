@@ -10,16 +10,16 @@ var dance_break = preload("res://distractions/dance_break.tscn")
 var confetti = preload("res://distractions/confetti.tscn")
 
 var numbers = {
-	"number0": "",
-	"number1": "",
-	"number2": "",
-	"number3": "",
-	"number4": "",
-	"number5": "",
-	"number6": "",
-	"number7": "",
-	"number8": "",
-	"number9": "",
+	"number0": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_0.png",
+	"number1": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_1.png",
+	"number2": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_2.png",
+	"number3": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_3.png",
+	"number4": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_4.png",
+	"number5": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_5.png",
+	"number6": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_6.png",
+	"number7": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_7.png",
+	"number8": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_8.png",
+	"number9": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_9.png",
 }
 
 var distractions = [dance_break, confetti]
@@ -27,15 +27,14 @@ var distractions = [dance_break, confetti]
 var score = 0
 
 
-func ready():
-	set_option_value(option_1)
-	set_option_value(option_2)
-	set_option_value(option_3)
-	set_option_value(option_4)
+func _ready():
+	set_option_value(option_1,option_2,option_3,option_4)
+	
 
 
 func _process(delta: float):
-	pass
+	if score == 50:
+		get_tree().change_scene_to_file("res://distractions/ending.tscn")
 
 
 func get_random_texture():
@@ -46,8 +45,25 @@ func get_random_texture():
 	randomize()
 	return texture
 
-func set_option_value(option):
-	option.texture_normal = ResourceLoader.load(get_random_texture())
+func set_option_value(option1,option2,option3,option4):
+	var texture_1 = get_random_texture()
+	var texture_2 = get_random_texture()
+	var texture_3 = get_random_texture()
+	var texture_4 = get_random_texture()
+	
+	if texture_1 == texture_2 or texture_1 == texture_3 or texture_1 == texture_4:
+		texture_1 = get_random_texture()
+	if texture_2 == texture_1 or texture_2 == texture_3 or texture_2 == texture_4:
+		texture_1 = get_random_texture()
+	if texture_3 == texture_2 or texture_3 == texture_1 or texture_3 == texture_4:
+		texture_1 = get_random_texture()
+	if texture_4 == texture_1 or texture_4 == texture_2 or texture_4 == texture_3:
+		texture_1 = get_random_texture()
+	
+	option1.texture_normal = ResourceLoader.load(texture_1)
+	option2.texture_normal = ResourceLoader.load(texture_2)
+	option3.texture_normal = ResourceLoader.load(texture_3)
+	option4.texture_normal = ResourceLoader.load(texture_4)
 
 
 func get_option_value(option):
@@ -83,6 +99,8 @@ func _on_option_1_pressed() -> void:
 		score += 1
 	else:
 		score -= 1
+		
+	set_option_value(option_1,option_2,option_3,option_4)
 
 
 func _on_option_2_pressed() -> void:
@@ -92,6 +110,8 @@ func _on_option_2_pressed() -> void:
 		score += 1
 	else:
 		score -= 1
+	
+	set_option_value(option_1,option_2,option_3,option_4)
 
 func _on_option_3_pressed() -> void:
 	var option_3_tex = option_3.get_texture_normal().resource_path 
@@ -100,6 +120,8 @@ func _on_option_3_pressed() -> void:
 		score += 1
 	else:
 		score -= 1
+	
+	set_option_value(option_1,option_2,option_3,option_4)
 
 
 func _on_option_4_pressed() -> void:
@@ -109,6 +131,8 @@ func _on_option_4_pressed() -> void:
 		score += 1
 	else:
 		score -= 1
+	
+	set_option_value(option_1,option_2,option_3,option_4)
 
 
 func wait_time_randomizer():
@@ -127,4 +151,5 @@ func _on_distraction_timer_timeout() -> void:
 	$Distraction.add_child(distranction_instance)
 	randomize()
 	
+	get_tree().paused = true
 	wait_time_randomizer()
