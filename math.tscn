@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://byg2f314mscqf"]
+
+[ext_resource type="Texture2D" uid="uid://dv6hw23cav0yp" path="res://icon.svg" id="1_q1ynt"]
+[ext_resource type="Script" path="res://math.gd" id="1_vrsrw"]
+
+[node name="Math" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_vrsrw")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Option1" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 192.0
+offset_right = 384.0
+offset_bottom = 320.0
+texture_normal = ExtResource("1_q1ynt")
+
+[node name="Option2" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 704.0
+offset_top = 192.0
+offset_right = 832.0
+offset_bottom = 320.0
+texture_normal = ExtResource("1_q1ynt")
+
+[node name="Option3" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 448.0
+offset_right = 384.0
+offset_bottom = 576.0
+texture_normal = ExtResource("1_q1ynt")
+
+[node name="Option4" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 704.0
+offset_top = 448.0
+offset_right = 832.0
+offset_bottom = 576.0
+texture_normal = ExtResource("1_q1ynt")
+
+[connection signal="pressed" from="Option1" to="." method="_on_option_1_pressed"]
+[connection signal="pressed" from="Option2" to="." method="_on_option_2_pressed"]
+[connection signal="pressed" from="Option3" to="." method="_on_option_3_pressed"]
+[connection signal="pressed" from="Option4" to="." method="_on_option_4_pressed"]
