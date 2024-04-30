@@ -10,7 +10,6 @@ var dance_break = preload("res://distractions/dance_break.tscn")
 var confetti = preload("res://distractions/confetti.tscn")
 
 var numbers = {
-	"number0": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_0.png",
 	"number1": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_1.png",
 	"number2": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_2.png",
 	"number3": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_3.png",
@@ -29,12 +28,18 @@ var score = 0
 
 func _ready():
 	set_option_value(option_1,option_2,option_3,option_4)
+	wait_time_randomizer()
 	
+	get_tree().paused = true
 
 
 func _process(delta: float):
+	$ProgressBar.value = score
+	$TimeleftBar.value = $Timer.time_left
 	if score == 50:
-		get_tree().change_scene_to_file("res://distractions/ending.tscn")
+		$Win.visible = true
+		get_tree().paused = true
+	
 
 
 func get_random_texture():
@@ -45,11 +50,16 @@ func get_random_texture():
 	randomize()
 	return texture
 
+
 func set_option_value(option1,option2,option3,option4):
 	var texture_1 = get_random_texture()
 	var texture_2 = get_random_texture()
 	var texture_3 = get_random_texture()
 	var texture_4 = get_random_texture()
+	
+	var textures = [texture_1,texture_2,texture_3,texture_4]
+	var odd_exists
+	
 	
 	if texture_1 == texture_2 or texture_1 == texture_3 or texture_1 == texture_4:
 		texture_1 = get_random_texture()
@@ -60,6 +70,13 @@ func set_option_value(option1,option2,option3,option4):
 	if texture_4 == texture_1 or texture_4 == texture_2 or texture_4 == texture_3:
 		texture_1 = get_random_texture()
 	
+	for i in textures:
+		if get_option_value(i) % 2 != 1:
+			odd_exists = true
+	
+	if !odd_exists:
+		set_option_value(option_1,option_2,option_3,option_4)
+	
 	option1.texture_normal = ResourceLoader.load(texture_1)
 	option2.texture_normal = ResourceLoader.load(texture_2)
 	option3.texture_normal = ResourceLoader.load(texture_3)
@@ -69,9 +86,7 @@ func set_option_value(option1,option2,option3,option4):
 func get_option_value(option):
 	var value
 	
-	if "0" in option:
-		value = 0
-	elif "1" in option:
+	if "1" in option:
 		value = 1
 	elif "2" in option:
 		value = 2
@@ -96,6 +111,7 @@ func get_option_value(option):
 func _on_option_1_pressed() -> void:
 	var option_1_tex = option_1.get_texture_normal().resource_path 
 	if get_option_value(option_1_tex) % 2 == 1:
+		$Correct.play()
 		score += 1
 	else:
 		score -= 1
@@ -107,6 +123,7 @@ func _on_option_2_pressed() -> void:
 	var option_2_tex = option_2.get_texture_normal().resource_path 
 	
 	if get_option_value(option_2_tex) % 2 == 1:
+		$Correct.play()
 		score += 1
 	else:
 		score -= 1
@@ -117,6 +134,7 @@ func _on_option_3_pressed() -> void:
 	var option_3_tex = option_3.get_texture_normal().resource_path 
 	
 	if get_option_value(option_3_tex) % 2 == 1:
+		$Correct.play()
 		score += 1
 	else:
 		score -= 1
@@ -128,6 +146,7 @@ func _on_option_4_pressed() -> void:
 	var option_4_tex = option_4.get_texture_normal().resource_path 
 	
 	if get_option_value(option_4_tex) % 2 == 1:
+		$Correct.play()
 		score += 1
 	else:
 		score -= 1
@@ -137,7 +156,7 @@ func _on_option_4_pressed() -> void:
 
 func wait_time_randomizer():
 	randomize()
-	var random_time = int(randf_range(15,45))
+	var random_time = int(randf_range(10,30))
 	randomize()
 	$DistractionTimer.wait_time = random_time
 
@@ -153,3 +172,18 @@ func _on_distraction_timer_timeout() -> void:
 	
 	get_tree().paused = true
 	wait_time_randomizer()
+
+
+func _on_start_pressed() -> void:
+	$Start.visible = false
+	$Timer.start()
+	get_tree().paused = false
+
+
+func _on_replay_pressed() -> void:
+	get_tree().reload_current_scene()
+
+
+func _on_timer_timeout() -> void:
+	$Lose.visible = true
+	get_tree().paused = true

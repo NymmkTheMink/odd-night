@@ -42,25 +42,30 @@ func _set_target_tex():
 
 func _on_left_pressed() -> void:
 	if "left" in target.texture.resource_path:
+		$Correct.play()
 		score += 1
-	_set_target_tex()
+		_set_target_tex()
 
 
 func _on_up_pressed() -> void:
 	if "up" in target.texture.resource_path:
+		$Correct.play()
 		score += 1
-	_set_target_tex()
+		_set_target_tex()
+
 
 
 func _on_down_pressed() -> void:
 	if "down" in target.texture.resource_path:
+		$Correct.play()
 		score += 1
-	_set_target_tex()
+		_set_target_tex()
 
 
 func _on_right_pressed() -> void:
 	if "right" in target.texture.resource_path:
+		$Correct.play()
 		score += 1
-	_set_target_tex()
+		_set_target_tex()
 
 

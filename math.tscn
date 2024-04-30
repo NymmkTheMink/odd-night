@@ -1,50 +1,171 @@
-[gd_scene load_steps=4 format=3 uid="uid://byg2f314mscqf"]
+[gd_scene load_steps=14 format=3 uid="uid://byg2f314mscqf"]
 
 [ext_resource type="Texture2D" uid="uid://dv6hw23cav0yp" path="res://icon.svg" id="1_q1ynt"]
 [ext_resource type="Script" path="res://math.gd" id="1_vrsrw"]
+[ext_resource type="Texture2D" uid="uid://url4i461ksj2" path="res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_0.png" id="2_rr44g"]
+[ext_resource type="FontFile" uid="uid://d0f32xx2twj5s" path="res://assets/Roboto/Roboto-Bold.ttf" id="2_u6cmh"]
 [ext_resource type="AudioStream" uid="uid://cxj0wgvm2gl4k" path="res://assets/math.mp3" id="3_8vmfg"]
+[ext_resource type="AudioStream" uid="uid://dyjpjre5pvn1b" path="res://assets/mixkit-correct-answer-tone-2870.wav" id="6_rp4kc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3hkhk"]
+bg_color = Color(0.858824, 0.858824, 0.858824, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nndyi"]
+bg_color = Color(0, 1, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_awdoo"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_082fy"]
+bg_color = Color(0, 0, 0, 0.882353)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6cy24"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_58gn7"]
+bg_color = Color(0.122252, 0.122252, 0.122252, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1d1c2"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="Math" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_vrsrw")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.329412, 0.196078, 0.0901961, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 64.0
+offset_right = 1408.0
+offset_bottom = 1024.0
+
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 
-[node name="Option1" type="TextureButton" parent="."]
+[node name="Progress" type="Label" parent="."]
 layout_mode = 0
-offset_left = 664.0
-offset_top = 328.0
-offset_right = 792.0
-offset_bottom = 456.0
-texture_normal = ExtResource("1_q1ynt")
+offset_left = 904.0
+offset_top = 256.0
+offset_right = 1032.0
+offset_bottom = 294.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_u6cmh")
+theme_override_font_sizes/font_size = 32
+text = "Progress"
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 712.0
+offset_top = 312.0
+offset_right = 1216.0
+offset_bottom = 344.0
+theme_override_styles/background = SubResource("StyleBoxFlat_3hkhk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_nndyi")
+max_value = 50.0
+show_percentage = false
+
+[node name="Timeleft" type="Label" parent="."]
+layout_mode = 0
+offset_left = 936.0
+offset_top = 128.0
+offset_right = 1000.0
+offset_bottom = 166.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_u6cmh")
+theme_override_font_sizes/font_size = 32
+text = "Time"
+
+[node name="TimeleftBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 712.0
+offset_top = 184.0
+offset_right = 1216.0
+offset_bottom = 216.0
+theme_override_styles/background = SubResource("StyleBoxFlat_3hkhk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_awdoo")
+max_value = 90.0
+value = 90.0
+show_percentage = false
+
+[node name="Option1" type="TextureButton" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 672.0
+offset_top = 432.0
+offset_right = 800.0
+offset_bottom = 560.0
+texture_normal = ExtResource("2_rr44g")
+stretch_mode = 0
 
 [node name="Option2" type="TextureButton" parent="."]
+modulate = Color(0, 0, 0, 1)
 layout_mode = 0
-offset_left = 1112.0
-offset_top = 328.0
-offset_right = 1240.0
-offset_bottom = 456.0
+offset_left = 1120.0
+offset_top = 432.0
+offset_right = 1248.0
+offset_bottom = 560.0
 texture_normal = ExtResource("1_q1ynt")
+stretch_mode = 0
 
 [node name="Option3" type="TextureButton" parent="."]
+modulate = Color(0, 0, 0, 1)
 layout_mode = 0
-offset_left = 664.0
-offset_top = 584.0
-offset_right = 792.0
-offset_bottom = 712.0
+offset_left = 672.0
+offset_top = 800.0
+offset_right = 800.0
+offset_bottom = 928.0
 texture_normal = ExtResource("1_q1ynt")
+stretch_mode = 0
 
 [node name="Option4" type="TextureButton" parent="."]
+modulate = Color(0, 0, 0, 1)
 layout_mode = 0
-offset_left = 1112.0
-offset_top = 584.0
-offset_right = 1240.0
-offset_bottom = 712.0
+offset_left = 1120.0
+offset_top = 800.0
+offset_right = 1248.0
+offset_bottom = 928.0
 texture_normal = ExtResource("1_q1ynt")
+stretch_mode = 0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_8vmfg")
@@ -59,8 +180,117 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="Start" type="Panel" parent="."]
+process_mode = 3
+layout_mode = 0
+offset_left = 592.0
+offset_top = 320.0
+offset_right = 1328.0
+offset_bottom = 760.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_082fy")
+
+[node name="Label" type="Label" parent="Start"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 104.0
+offset_right = 639.0
+offset_bottom = 180.0
+theme_override_fonts/font = ExtResource("2_u6cmh")
+theme_override_font_sizes/font_size = 64
+text = "Find a odd number"
+
+[node name="Start" type="Button" parent="Start"]
+layout_mode = 0
+offset_left = 312.0
+offset_top = 272.0
+offset_right = 432.0
+offset_bottom = 337.0
+theme_override_fonts/font = ExtResource("2_u6cmh")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_6cy24")
+theme_override_styles/hover = SubResource("StyleBoxFlat_58gn7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1d1c2")
+text = "start"
+
+[node name="Win" type="Panel" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 0
+offset_left = 592.0
+offset_top = 320.0
+offset_right = 1328.0
+offset_bottom = 760.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_082fy")
+
+[node name="Label" type="Label" parent="Win"]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 112.0
+offset_right = 520.0
+offset_bottom = 188.0
+theme_override_fonts/font = ExtResource("2_u6cmh")
+theme_override_font_sizes/font_size = 64
+text = "You did it!"
+
+[node name="Replay" type="Button" parent="Win"]
+layout_mode = 0
+offset_left = 304.0
+offset_top = 272.0
+offset_right = 450.0
+offset_bottom = 337.0
+theme_override_fonts/font = ExtResource("2_u6cmh")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_6cy24")
+theme_override_styles/hover = SubResource("StyleBoxFlat_58gn7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1d1c2")
+text = "Replay"
+
+[node name="Lose" type="Panel" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 0
+offset_left = 592.0
+offset_top = 320.0
+offset_right = 1328.0
+offset_bottom = 760.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_082fy")
+
+[node name="Label" type="Label" parent="Lose"]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 112.0
+offset_right = 521.0
+offset_bottom = 188.0
+theme_override_fonts/font = ExtResource("2_u6cmh")
+theme_override_font_sizes/font_size = 64
+text = "You failed!"
+
+[node name="Replay" type="Button" parent="Lose"]
+layout_mode = 0
+offset_left = 296.0
+offset_top = 272.0
+offset_right = 442.0
+offset_bottom = 337.0
+theme_override_fonts/font = ExtResource("2_u6cmh")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_6cy24")
+theme_override_styles/hover = SubResource("StyleBoxFlat_58gn7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1d1c2")
+text = "Replay"
+
+[node name="Timer" type="Timer" parent="."]
+process_mode = 3
+wait_time = 90.0
+
+[node name="Correct" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_rp4kc")
+
 [connection signal="pressed" from="Option1" to="." method="_on_option_1_pressed"]
 [connection signal="pressed" from="Option2" to="." method="_on_option_2_pressed"]
 [connection signal="pressed" from="Option3" to="." method="_on_option_3_pressed"]
 [connection signal="pressed" from="Option4" to="." method="_on_option_4_pressed"]
 [connection signal="timeout" from="DistractionTimer" to="." method="_on_distraction_timer_timeout"]
+[connection signal="pressed" from="Start/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Win/Replay" to="." method="_on_replay_pressed"]
+[connection signal="pressed" from="Lose/Replay" to="." method="_on_replay_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

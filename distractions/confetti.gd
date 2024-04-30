@@ -27,5 +27,5 @@ func spawn_confetti(amount):
 	for i in range(amount):
 		var confetti_instance = confetti.instantiate()
 		$Pieces.add_child(confetti_instance)
-		confetti_instance.position = Vector2(randf_range(0,1920), randf_range(0,1080))
+		confetti_instance.position = Vector2(randf_range(100,1820), randf_range(100,990))
 	
