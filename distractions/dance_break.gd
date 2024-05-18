@@ -29,6 +29,27 @@ func _process(delta: float) -> void:
 	if score == target_score:
 		queue_free()
 		get_tree().paused = false
+	
+	if Input.is_action_just_pressed("left"):
+		if "left" in target.texture.resource_path:
+			$Correct.play()
+			score += 1
+			_set_target_tex()
+	elif Input.is_action_just_pressed("right"):
+		if "right" in target.texture.resource_path:
+			$Correct.play()
+			score += 1
+			_set_target_tex()
+	elif Input.is_action_just_pressed("up"):
+		if "up" in target.texture.resource_path:
+			$Correct.play()
+			score += 1
+			_set_target_tex()
+	elif Input.is_action_just_pressed("down"):
+		if "down" in target.texture.resource_path:
+			$Correct.play()
+			score += 1
+			_set_target_tex()
 
 
 func _set_target_tex():
@@ -38,34 +59,3 @@ func _set_target_tex():
 	var btn_texture = choices[random_key]
 	randomize()
 	target.texture = ResourceLoader.load(btn_texture)
-
-
-func _on_left_pressed() -> void:
-	if "left" in target.texture.resource_path:
-		$Correct.play()
-		score += 1
-		_set_target_tex()
-
-
-func _on_up_pressed() -> void:
-	if "up" in target.texture.resource_path:
-		$Correct.play()
-		score += 1
-		_set_target_tex()
-
-
-
-func _on_down_pressed() -> void:
-	if "down" in target.texture.resource_path:
-		$Correct.play()
-		score += 1
-		_set_target_tex()
-
-
-func _on_right_pressed() -> void:
-	if "right" in target.texture.resource_path:
-		$Correct.play()
-		score += 1
-		_set_target_tex()
-
-

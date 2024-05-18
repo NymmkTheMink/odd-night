@@ -1,10 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://72ij81x63h3m"]
+[gd_scene load_steps=5 format=3 uid="uid://72ij81x63h3m"]
 
 [ext_resource type="Script" path="res://distractions/dance_break.gd" id="1_5cxm7"]
-[ext_resource type="Texture2D" uid="uid://djpyga7gchssw" path="res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_arrow_left.png" id="2_rcelj"]
-[ext_resource type="Texture2D" uid="uid://dpeys1l3te3gv" path="res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_arrow_up.png" id="3_b4irr"]
 [ext_resource type="Texture2D" uid="uid://ccyjhp0noh04m" path="res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_arrow_down.png" id="4_8f4ry"]
-[ext_resource type="Texture2D" uid="uid://d4ahxrft0kest" path="res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_arrow_right.png" id="5_mickr"]
 [ext_resource type="AudioStream" uid="uid://b42ie3soiflwp" path="res://assets/dance.mp3" id="6_tg80o"]
 [ext_resource type="AudioStream" uid="uid://dyjpjre5pvn1b" path="res://assets/mixkit-correct-answer-tone-2870.wav" id="7_mbi4d"]
 
@@ -18,61 +15,13 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5cxm7")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
-offset_left = 248.0
-offset_top = 256.0
-offset_right = 1672.0
-offset_bottom = 944.0
-color = Color(1, 1, 1, 0.882353)
-
-[node name="Left" type="TextureButton" parent="."]
-modulate = Color(1, 0, 0, 1)
-layout_mode = 0
-offset_left = 304.0
-offset_top = 728.0
-offset_right = 432.0
-offset_bottom = 856.0
-texture_normal = ExtResource("2_rcelj")
-stretch_mode = 0
-
-[node name="Up" type="TextureButton" parent="."]
-modulate = Color(0, 0, 1, 1)
-layout_mode = 0
-offset_left = 688.0
-offset_top = 728.0
-offset_right = 816.0
-offset_bottom = 856.0
-texture_normal = ExtResource("3_b4irr")
-stretch_mode = 0
-
-[node name="Down" type="TextureButton" parent="."]
+[node name="Target" type="TextureRect" parent="."]
 modulate = Color(0, 1, 0, 1)
 layout_mode = 0
-offset_left = 1104.0
-offset_top = 728.0
-offset_right = 1232.0
-offset_bottom = 856.0
-texture_normal = ExtResource("4_8f4ry")
-stretch_mode = 0
-
-[node name="Right" type="TextureButton" parent="."]
-modulate = Color(1, 1, 0, 1)
-layout_mode = 0
-offset_left = 1488.0
-offset_top = 720.0
-offset_right = 1616.0
-offset_bottom = 848.0
-texture_normal = ExtResource("5_mickr")
-stretch_mode = 0
-
-[node name="Target" type="TextureRect" parent="."]
-modulate = Color(1, 0, 0.619608, 1)
-layout_mode = 0
-offset_left = 824.0
-offset_top = 336.0
-offset_right = 1080.0
-offset_bottom = 592.0
+offset_left = 832.0
+offset_top = 384.0
+offset_right = 1088.0
+offset_bottom = 640.0
 texture = ExtResource("4_8f4ry")
 
 [node name="Dancing" type="AudioStreamPlayer" parent="."]
@@ -81,8 +30,3 @@ autoplay = true
 
 [node name="Correct" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_mbi4d")
-
-[connection signal="pressed" from="Left" to="." method="_on_left_pressed"]
-[connection signal="pressed" from="Up" to="." method="_on_up_pressed"]
-[connection signal="pressed" from="Down" to="." method="_on_down_pressed"]
-[connection signal="pressed" from="Right" to="." method="_on_right_pressed"]

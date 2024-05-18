@@ -21,6 +21,21 @@ var numbers = {
 	"number9": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_9.png",
 }
 
+var odd_numbers = {
+	"number1": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_1.png",
+	"number3": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_3.png",
+	"number5": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_5.png",
+	"number7": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_7.png",
+	"number9": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_9.png",
+}
+
+var even_numbers = {
+	"number2": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_2.png",
+	"number4": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_4.png",
+	"number6": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_6.png",
+	"number8": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_8.png",
+}
+
 var distractions = [dance_break, confetti]
 
 var score = 0
@@ -42,45 +57,51 @@ func _process(delta: float):
 	
 
 
-func get_random_texture():
+func get_random_even_texture():
 	randomize()
-	var size = numbers.size()
-	var random_key = numbers.keys()[randi() % size]
-	var texture = numbers[random_key]
+	var size = even_numbers.size()
+	var random_key = even_numbers.keys()[randi() % size]
+	var texture = even_numbers[random_key]
+	randomize()
+	return texture
+
+func get_random_odd_texture():
+	randomize()
+	var size = odd_numbers.size()
+	var random_key = odd_numbers.keys()[randi() % size]
+	var texture = odd_numbers[random_key]
 	randomize()
 	return texture
 
 
-func set_option_value(option1,option2,option3,option4):
-	var texture_1 = get_random_texture()
-	var texture_2 = get_random_texture()
-	var texture_3 = get_random_texture()
-	var texture_4 = get_random_texture()
-	
-	var textures = [texture_1,texture_2,texture_3,texture_4]
-	var odd_exists
-	
-	
-	if texture_1 == texture_2 or texture_1 == texture_3 or texture_1 == texture_4:
-		texture_1 = get_random_texture()
-	if texture_2 == texture_1 or texture_2 == texture_3 or texture_2 == texture_4:
-		texture_1 = get_random_texture()
-	if texture_3 == texture_2 or texture_3 == texture_1 or texture_3 == texture_4:
-		texture_1 = get_random_texture()
-	if texture_4 == texture_1 or texture_4 == texture_2 or texture_4 == texture_3:
-		texture_1 = get_random_texture()
-	
-	for i in textures:
-		if get_option_value(i) % 2 != 1:
-			odd_exists = true
-	
-	if !odd_exists:
-		set_option_value(option_1,option_2,option_3,option_4)
-	
-	option1.texture_normal = ResourceLoader.load(texture_1)
-	option2.texture_normal = ResourceLoader.load(texture_2)
-	option3.texture_normal = ResourceLoader.load(texture_3)
-	option4.texture_normal = ResourceLoader.load(texture_4)
+func set_option_value(option1, option2, option3, option4):
+	# Initialize texture variables
+	var textures = [null, null, null, null]
+
+	# Randomize and choose a random index for the odd texture
+	randomize()
+	var odd_index = randi() % textures.size()
+
+	# Assign a random odd texture to the chosen index
+	textures[odd_index] = get_random_odd_texture()
+
+	# Create a list of available even textures
+	var available_even_textures = even_numbers.values()
+
+	# Assign random even textures to the remaining indices
+	for i in range(textures.size()):
+		if textures[i] == null:
+			randomize()
+			var even_index = randi() % available_even_textures.size()
+			textures[i] = available_even_textures[even_index]
+			available_even_textures.remove_at(even_index)
+
+	# Assign the textures to the options
+	option1.texture_normal = ResourceLoader.load(textures[0])
+	option2.texture_normal = ResourceLoader.load(textures[1])
+	option3.texture_normal = ResourceLoader.load(textures[2])
+	option4.texture_normal = ResourceLoader.load(textures[3])
+
 
 
 func get_option_value(option):
