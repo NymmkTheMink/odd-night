@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cadnxh4vbbm0i"]
 
 [ext_resource type="Texture2D" uid="uid://bqgah1rxssu2s" path="res://assets/kenney_splat-pack/PNG/Default (256px)/splat00.png" id="1_ydpsn"]
-[ext_resource type="Script" path="res://distractions/confetti_pieces.gd" id="2_yj74w"]
+[ext_resource type="Script" uid="uid://dcmyghufdaded" path="res://distractions/confetti_pieces.gd" id="2_yj74w"]
 
 [node name="ConfettiPieces" type="TextureButton"]
 modulate = Color(0, 0, 1, 1)
