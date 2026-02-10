@@ -1,39 +1,29 @@
 extends Control
 
 
-@onready var option_1 = get_node("Option1")
-@onready var option_2 = get_node("Option2")
-@onready var option_3 = get_node("Option3")
-@onready var option_4 = get_node("Option4")
+@onready var option_1 = get_node("%Option1")
+@onready var option_2 = get_node("%Option2")
+@onready var option_3 = get_node("%Option3")
+@onready var option_4 = get_node("%Option4")
+@onready var option_5 = get_node("%Option5")
+
 
 var dance_break = preload("res://distractions/dance_break.tscn")
 var confetti = preload("res://distractions/confetti.tscn")
 
-var numbers = {
-	"number1": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_1.png",
-	"number2": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_2.png",
-	"number3": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_3.png",
-	"number4": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_4.png",
-	"number5": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_5.png",
-	"number6": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_6.png",
-	"number7": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_7.png",
-	"number8": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_8.png",
-	"number9": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_9.png",
-}
-
 var odd_numbers = {
-	"number1": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_1.png",
-	"number3": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_3.png",
-	"number5": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_5.png",
-	"number7": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_7.png",
-	"number9": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_9.png",
+	"number1": preload("uid://cqenbfvfk6yhf"),
+	"number3": preload("uid://ckd33ijkpndg6"),
+	"number5": preload("uid://cd2klcchfohas"),
+	"number7": preload("uid://c5gi13mp7co44"),
+	"number9": preload("uid://dabk1qcff5k22"),
 }
 
 var even_numbers = {
-	"number2": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_2.png",
-	"number4": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_4.png",
-	"number6": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_6.png",
-	"number8": "res://assets/kenney_input-prompts/Keyboard & Mouse/Default/keyboard_8.png",
+	"number2": preload("uid://bo6o5eynogvqb"),
+	"number4": preload("uid://rothdfhdpum7"),
+	"number6": preload("uid://bbqxixxvmebg2"),
+	"number8": preload("uid://bul0e33asvmmf"),
 }
 
 var distractions = [dance_break, confetti]
@@ -42,17 +32,17 @@ var score = 0
 
 
 func _ready():
-	set_option_value(option_1,option_2,option_3,option_4)
+	set_option_value(option_1,option_2,option_3,option_4, option_5)
 	wait_time_randomizer()
 	
 	get_tree().paused = true
 
 
 func _process(delta: float):
-	$ProgressBar.value = score
-	$TimeleftBar.value = $Timer.time_left
-	if score == 50:
-		$Win.visible = true
+	$%ProgressBar.value = score
+	$%TimeleftBar.value = $%Timer.time_left
+	if score == 25:
+		$%Win.visible = true
 		get_tree().paused = true
 	
 
@@ -74,9 +64,9 @@ func get_random_odd_texture():
 	return texture
 
 
-func set_option_value(option1, option2, option3, option4):
+func set_option_value(option1, option2, option3, option4, option5):
 	# Initialize texture variables
-	var textures = [null, null, null, null]
+	var textures = [null, null, null, null, null]
 
 	# Randomize and choose a random index for the odd texture
 	randomize()
@@ -97,10 +87,12 @@ func set_option_value(option1, option2, option3, option4):
 			available_even_textures.remove_at(even_index)
 
 	# Assign the textures to the options
-	option1.texture_normal = ResourceLoader.load(textures[0])
-	option2.texture_normal = ResourceLoader.load(textures[1])
-	option3.texture_normal = ResourceLoader.load(textures[2])
-	option4.texture_normal = ResourceLoader.load(textures[3])
+	option1.texture_normal = textures[0]
+	option2.texture_normal = textures[1]
+	option3.texture_normal = textures[2]
+	option4.texture_normal = textures[3]
+	option5.texture_normal = textures[4]
+
 
 
 
@@ -132,54 +124,67 @@ func get_option_value(option):
 func _on_option_1_pressed() -> void:
 	var option_1_tex = option_1.get_texture_normal().resource_path 
 	if get_option_value(option_1_tex) % 2 == 1:
-		$Correct.play()
+		$%Correct.play()
 		score += 1
 	else:
 		score -= 1
 		
-	set_option_value(option_1,option_2,option_3,option_4)
+	set_option_value(option_1,option_2,option_3,option_4,option_5)
 
 
 func _on_option_2_pressed() -> void:
 	var option_2_tex = option_2.get_texture_normal().resource_path 
 	
 	if get_option_value(option_2_tex) % 2 == 1:
-		$Correct.play()
+		$%Correct.play()
 		score += 1
 	else:
 		score -= 1
 	
-	set_option_value(option_1,option_2,option_3,option_4)
+	set_option_value(option_1,option_2,option_3,option_4,option_5)
 
 func _on_option_3_pressed() -> void:
 	var option_3_tex = option_3.get_texture_normal().resource_path 
 	
 	if get_option_value(option_3_tex) % 2 == 1:
-		$Correct.play()
+		$%Correct.play()
 		score += 1
 	else:
 		score -= 1
 	
-	set_option_value(option_1,option_2,option_3,option_4)
+	set_option_value(option_1,option_2,option_3,option_4,option_5)
 
 
 func _on_option_4_pressed() -> void:
 	var option_4_tex = option_4.get_texture_normal().resource_path 
 	
 	if get_option_value(option_4_tex) % 2 == 1:
-		$Correct.play()
+		$%Correct.play()
 		score += 1
 	else:
-		score -= 1
+		if score > 0:
+			score -= 1
 	
-	set_option_value(option_1,option_2,option_3,option_4)
+	set_option_value(option_1,option_2,option_3,option_4,option_5)
 
+
+func _on_option_5_pressed() -> void:
+	var option_5_tex = option_5.get_texture_normal().resource_path 
+	
+	if get_option_value(option_5_tex) % 2 == 1:
+		$%Correct.play()
+		score += 1
+	else:
+		if score > 0:
+			score -= 1
+	
+	set_option_value(option_1,option_2,option_3,option_4,option_5)
 
 func wait_time_randomizer():
 	randomize()
-	var random_time = int(randf_range(10,30))
+	var random_time = int(randf_range(5,15))
 	randomize()
-	$DistractionTimer.wait_time = random_time
+	$%DistractionTimer.wait_time = random_time
 
 
 
@@ -188,7 +193,7 @@ func _on_distraction_timer_timeout() -> void:
 	var size = distractions.size()
 	var random_distraction = distractions[randi() % size]
 	var distranction_instance = random_distraction.instantiate()
-	$Distraction.add_child(distranction_instance)
+	$%Distraction.add_child(distranction_instance)
 	randomize()
 	
 	get_tree().paused = true
@@ -196,8 +201,8 @@ func _on_distraction_timer_timeout() -> void:
 
 
 func _on_start_pressed() -> void:
-	$Start.visible = false
-	$Timer.start()
+	$%Start.visible = false
+	$%Timer.start()
 	get_tree().paused = false
 
 
@@ -206,5 +211,5 @@ func _on_replay_pressed() -> void:
 
 
 func _on_timer_timeout() -> void:
-	$Lose.visible = true
+	$%Lose.visible = true
 	get_tree().paused = true
