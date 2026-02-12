@@ -5,7 +5,7 @@ var score = 0
 var target_score
 
 var active_target_color = Color(0,1,0,1)
-var inactive_target_color = Color(1,1,1,0.5)
+var inactive_target_color = Color(1,1,1,1)
 
 @onready var target_1 = %Target1
 @onready var target_2 = %Target2
@@ -33,33 +33,33 @@ func random_target_score():
 
 
 func _process(delta: float) -> void:
-	if score == target_score:
-		queue_free()
-		get_tree().paused = false
-	
 	if Input.is_action_just_pressed("left"):
 		if target == 3:
 			$Correct.play()
 			score += 1
 			target_3.modulate = inactive_target_color
+			won()
 			_set_target()
 	elif Input.is_action_just_pressed("right"):
 		if target == 4:
 			$Correct.play()
 			score += 1
 			target_4.modulate = inactive_target_color
+			won()
 			_set_target()
 	elif Input.is_action_just_pressed("up"):
 		if target == 2:
 			$Correct.play()
 			score += 1
 			target_2.modulate = inactive_target_color
+			won()
 			_set_target()
 	elif Input.is_action_just_pressed("down"):
 		if target == 1:
 			$Correct.play()
 			score += 1
 			target_1.modulate = inactive_target_color
+			won()
 			_set_target()
 
 
@@ -80,3 +80,9 @@ func _set_target():
 		4:
 			target_4.modulate = active_target_color
 	target = target_number
+
+
+func won():
+	if score == target_score:
+		get_tree().paused = false
+		queue_free()
